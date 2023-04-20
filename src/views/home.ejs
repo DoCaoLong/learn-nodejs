@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <div class="homepage">
+    <!-- nav -->
+    <ul>
+      <li><a class="active" href="/">Home</a></li>
+      <li><a href="/create">Create User</a></li>
+    </ul>
+    <!-- close nav -->
+    <!-- table -->
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Email</th>
+        <th>Name</th>
+        <th>City</th>
+        <th>Action</th>
+      </tr>
+      <% listUsers.map((item,index)=> { %> <tr>
+          <td>
+            <%=item.id%>
+          </td>
+          <td>
+            <%=item.email%>
+          </td>
+          <td>
+            <%=item.name%>
+          </td>
+          <td>
+            <%=item.city%>
+          </td>
+          <td>
+            <div class="wrap-btn">
+              <a href="/update/<%=item.id%>">
+                <button class="button button-blue">Edit</button>
+              </a>
+              <form action="/delete-user/<%=item.id%>" method="POST">
+                <button class="button button-red">Delete</button>
+              </form>
+            </div>
+          </td>
+        </tr>
+        <% })%>
+    </table>
+    <!-- close table -->
+  </div>
+</body>
+
+</html>

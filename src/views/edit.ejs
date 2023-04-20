@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+  <div class="homepage">
+    <ul>
+      <li><a href="/">Home</a></li>
+      <li><a class="active" href="/create">Update User</a></li>
+    </ul>
+    <div class="home-form">
+      <form action="/update-user" method="POST">
+        <label for="email">Email</label>
+        <input style="display: none;" value="<%= user.id %>" type="text" id="userId" name="userId">
+        <input value="<%= user.email %>" type="text" id="email" name="email" placeholder="Your email.."> <label
+          for="name">Name</label>
+        <input value="<%= user.name %>" type="text" id="name" name="name" placeholder="Your name..">
+        <label for="cicy">City</label>
+        <input value="<%= user.city %>" type="text" id="city" name="city" placeholder="Your city..">
+        <input type="submit" value="Update">
+      </form>
+    </div>
+  </div>
+  <script>
+
+  </script>
+</body>
+
+</html>
