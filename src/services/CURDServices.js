@@ -1,3 +1,4 @@
+// services la noi chua cac cau query toi db
 const connection = require("../config/database");
 
 // getAll Users
