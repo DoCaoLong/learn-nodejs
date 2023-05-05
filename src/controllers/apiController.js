@@ -1,7 +1,16 @@
-const User = require("../models/user");
+const {
+  getUsersService,
+  postUsersService,
+  putUsersService,
+  deleteUsersService,
+} = require("../services/userService");
+const {
+  uploadSingleFile,
+  uploadMultipleFiles,
+} = require("../services/fileService");
 
 const getUsers = async (req, res) => {
-  const results = await User.find({});
+  const results = await getUsersService();
   return res.status(200).json({
     EC: 0,
     data: results,
@@ -10,11 +19,7 @@ const getUsers = async (req, res) => {
 
 const postUser = async (req, res) => {
   let data = req.body;
-  const results = await User.create({
-    email: data.email,
-    name: data.name,
-    city: data.city,
-  });
+  const results = await postUsersService(data);
   return res.status(200).json({
     EC: 0,
     data: results,
@@ -23,16 +28,7 @@ const postUser = async (req, res) => {
 
 const putUser = async (req, res) => {
   let data = req.body;
-  const results = await User.updateOne(
-    {
-      _id: data.userId,
-    },
-    {
-      email: data.email,
-      name: data.name,
-      city: data.city,
-    }
-  );
+  const results = await putUsersService(data);
   return res.status(200).json({
     EC: 0,
     data: results,
@@ -40,10 +36,33 @@ const putUser = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
-  const results = await User.deleteOne({ _id: req.body.userId });
+  const results = await deleteUsersService(req.body.userId);
   return res.status(200).json({
     data: results,
   });
+};
+
+const postUploadSingleFile = async (req, res) => {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send("No files were uploaded.");
+  }
+  let result = await uploadSingleFile(req.files.image);
+  return res.status(200).json(result);
+};
+
+const postUploadMultipleFiles = async (req, res) => {
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send("No files were uploaded.");
+  }
+  if (Array.isArray(req.files.image)) {
+    let results = await uploadMultipleFiles(req.files.image);
+    return res.status(200).json({
+      EC: 0,
+      data: results,
+    });
+  } else {
+    return await postUploadSingleFile(req, res);
+  }
 };
 
 module.exports = {
@@ -51,4 +70,6 @@ module.exports = {
   postUser,
   putUser,
   deleteUser,
+  postUploadSingleFile,
+  postUploadMultipleFiles,
 };

@@ -5,8 +5,13 @@ const configViewEngine = require("./config/viewEngine");
 const port = process.env.PORT || 8888;
 const hostname = process.env.HOST_NAME;
 const webRoute = require("./routes/web");
+const fileUpload = require("express-fileupload");
 const apiRoute = require("./routes/api");
 const connection = require("./config/database");
+
+// config file upload
+// default options
+app.use(fileUpload());
 
 // config req.body
 app.use(express.json()); // for json
