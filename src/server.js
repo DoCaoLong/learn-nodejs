@@ -1,4 +1,5 @@
 require("dotenv").config();
+const cors = require('cors');
 const express = require("express");
 const app = express();
 const configViewEngine = require("./config/viewEngine");
@@ -12,6 +13,9 @@ const connection = require("./config/database");
 // config file upload
 // default options
 app.use(fileUpload());
+app.use(cors({
+  origin: '*'
+}));
 
 // config req.body
 app.use(express.json()); // for json
