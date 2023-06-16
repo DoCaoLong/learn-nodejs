@@ -12,6 +12,8 @@ const connection = require("./config/database");
 
 // config file upload
 // default options
+// config file upload
+// default options
 app.use(fileUpload());
 app.use(cors({
   origin: '*'
